@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:screenOrientation="landscape"
-    android:background="@color/backgroundPrimary"
+    android:background="@color/grey_200"
+    android:gravity="center"
+    android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:gravity="center">
+    android:screenOrientation="landscape">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp">
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/darkPrimary">
+            android:background="@color/darkPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_1"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_1" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:background="@color/lightPrimary"
 
-            android:background="@color/lightPrimary">
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_2"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_2" />
 
         </FrameLayout>
 
@@ -50,137 +49,127 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/darkPrimary">
+            android:background="@color/darkPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_3"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_3" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:background="@color/lightPrimary"
 
-            android:background="@color/lightPrimary">
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_4"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_4" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/darkPrimary">
+            android:background="@color/darkPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_5"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_5" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:background="@color/lightPrimary"
 
-            android:background="@color/lightPrimary">
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_6"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_6" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:background="@color/darkPrimary"
 
-            android:background="@color/darkPrimary">
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_7"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_7" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/lightPrimary">
+            android:background="@color/lightPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
+                style="@style/HelpTextView"
                 android:autoLink="web"
-                android:text = "@string/help_8"
-                />
+                android:text="@string/help_8" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:background="@color/darkPrimary"
 
-            android:background="@color/darkPrimary">
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
-                android:text = "@string/help_9"
-                />
+                style="@style/HelpTextView"
+                android:text="@string/help_9" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/lightPrimary">
+            android:background="@color/lightPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
+                style="@style/HelpTextView"
                 android:autoLink="web"
-                android:text = "@string/help_10"
-                />
+                android:text="@string/help_10" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/darkPrimary">
+            android:background="@color/darkPrimary"
+            android:padding="5dp">
 
             <TextView
-                style ="@style/HelpTextView"
+                style="@style/HelpTextView"
                 android:autoLink="web"
-                android:text = "@string/help_11"
-                />
+                android:text="@string/help_11" />
 
         </FrameLayout>
-
 
 
     </LinearLayout>
-    </ScrollView>
+</ScrollView>

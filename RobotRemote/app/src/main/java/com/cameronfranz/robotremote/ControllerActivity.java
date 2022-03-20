@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.SeekBar;
 
 import org.w3c.dom.Text;
 
@@ -36,7 +37,12 @@ public class ControllerActivity extends AppCompatActivity {
     private UDPReceiveServer receiveServer;
     private Thread receiveThread;
     TextView telemetryText;
-
+    TextView channel1Text;
+    TextView channel2Text;
+    TextView channel3Text;
+    TextView channel4Text;
+    TextView modeText;
+    TextView cycText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +77,55 @@ public class ControllerActivity extends AppCompatActivity {
         receiveThread.start();
 
         telemetryText = (TextView) findViewById(R.id.telemetryText);
+        channel1Text = (TextView) findViewById(R.id.channel1Text);
+        channel2Text = (TextView) findViewById(R.id.channel2Text);
+        channel3Text = (TextView) findViewById(R.id.channel3Text);
+        channel4Text = (TextView) findViewById(R.id.channel4Text);
+        modeText = (TextView) findViewById(R.id.modeText);
+        cycText = (TextView) findViewById(R.id.cycText);
         FrameLayout ctrl_leftTouchPad = (FrameLayout) findViewById(R.id.ctrl_leftTouchPad);
         FrameLayout ctrl_rightTouchPad = (FrameLayout) findViewById(R.id.ctrl_rightTouchPad);
         ctrl_leftTouchPad.setOnTouchListener(touchPadHandler);
         ctrl_rightTouchPad.setOnTouchListener(touchPadHandler);
-        findViewById(R.id.ctrl_btn1).setOnTouchListener(tapButtonsHandler);
-        findViewById(R.id.ctrl_btn2).setOnTouchListener(tapButtonsHandler);
-        findViewById(R.id.ctrl_btn3).setOnTouchListener(tapButtonsHandler);
-        findViewById(R.id.ctrl_btn4).setOnTouchListener(tglButtonsHandler);
-        findViewById(R.id.ctrl_btn5).setOnTouchListener(tglButtonsHandler);
-        findViewById(R.id.ctrl_btn6).setOnTouchListener(tglButtonsHandler);
+        SeekBar modeSwitch = (SeekBar) findViewById(R.id.modeSwitch);
+        SeekBar cyclicScale = (SeekBar) findViewById(R.id.cyclicScale);
+        modeSwitch.setOnSeekBarChangeListener(seekBarHandler);
+        cyclicScale.setOnSeekBarChangeListener(seekBarHandler);
+        findViewById(R.id.calibrateBtn).setOnTouchListener(tapButtonsHandler);
+        findViewById(R.id.prevBtn).setOnTouchListener(tapButtonsHandler);
+        findViewById(R.id.nextBtn).setOnTouchListener(tapButtonsHandler);
+        findViewById(R.id.autoBtn).setOnTouchListener(tglButtonsHandler);
+        findViewById(R.id.arrowBtn).setOnTouchListener(tglButtonsHandler);
+        findViewById(R.id.armBtn).setOnTouchListener(tglButtonsHandler);
 
     }
+
+    private SeekBar.OnSeekBarChangeListener seekBarHandler = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            switch (seekBar.getId()) {
+                case R.id.modeSwitch:
+                    ctrlStateOutgoing.put("'MOD'", i);
+                    modeText.setText("Flight Mode: " + i);
+                    break;
+                case R.id.cyclicScale:
+                    ctrlStateOutgoing.put("'CYC'", i);
+                    cycText.setText("Cyclic Gain: " + (i/10.0));
+                    break;
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
     private View.OnTouchListener touchPadHandler = new View.OnTouchListener(){
         public boolean onTouch(View view, MotionEvent event) {
             float relativeXPos = event.getX();
@@ -97,15 +140,42 @@ public class ControllerActivity extends AppCompatActivity {
             normalizedXPos = limitRange(normalizedXPos,-TOUCHPAD_RANGE,TOUCHPAD_RANGE);
             normalizedYPos = limitRange(normalizedYPos,-TOUCHPAD_RANGE,TOUCHPAD_RANGE);
 
-
             switch (view.getId()) {
                 case R.id.ctrl_leftTouchPad:
-                    ctrlStateOutgoing.put("'leftTouchPadX'",normalizedXPos);
-                    ctrlStateOutgoing.put("'leftTouchPadY'",normalizedYPos);
+                    if (event.getAction() == android.view.MotionEvent.ACTION_UP){
+                        normalizedXPos = 0;
+//                        normalizedYPos = 0;
+                    }
+
+//                    channel1Text.setText("AIL: " + ((normalizedXPos*5)+1500));
+//                    channel2Text.setText("ELE: " + ((normalizedYPos*5)+1500));
+
+                    channel1Text.setText("RUD: " + ((normalizedXPos*5)+1500));
+                    channel2Text.setText("THR: " + ((normalizedYPos*5)+1500));
+
+//                    ctrlStateOutgoing.put("'AIL'",normalizedXPos);
+//                    ctrlStateOutgoing.put("'ELE'",normalizedYPos);
+
+                    ctrlStateOutgoing.put("'RUD'",normalizedXPos);
+                    ctrlStateOutgoing.put("'THR'",normalizedYPos);
                     break;
                 case R.id.ctrl_rightTouchPad:
-                    ctrlStateOutgoing.put("'rightTouchPadX'",normalizedXPos);
-                    ctrlStateOutgoing.put("'rightTouchPadY'",normalizedYPos);
+                    if (event.getAction() == android.view.MotionEvent.ACTION_UP){
+                        normalizedXPos = 0;
+                        normalizedYPos = 0;
+                    }
+
+//                    channel3Text.setText("THR: " + ((normalizedYPos*5)+1500));
+//                    channel4Text.setText("RUD: " + ((normalizedXPos*5)+1500));
+
+                    channel3Text.setText("ELE: " + ((normalizedYPos*5)+1500));
+                    channel4Text.setText("AIL: " + ((normalizedXPos*5)+1500));
+
+//                    ctrlStateOutgoing.put("'RUD'",normalizedXPos);
+//                    ctrlStateOutgoing.put("'THR'",normalizedYPos);
+
+                    ctrlStateOutgoing.put("'AIL'",normalizedXPos);
+                    ctrlStateOutgoing.put("'ELE'",normalizedYPos);
                     break;
 
             }
@@ -125,18 +195,18 @@ public class ControllerActivity extends AppCompatActivity {
 
 
             switch (view.getId()) {
-                case R.id.ctrl_btn1:
-                    ctrlStateOutgoing.put("'btn1'", btnVal);
+                case R.id.calibrateBtn:
+                    ctrlStateOutgoing.put("'CAL'", btnVal);
                     break;
-                case R.id.ctrl_btn2:
-                    ctrlStateOutgoing.put("'btn2'", btnVal);
+                case R.id.prevBtn:
+                    ctrlStateOutgoing.put("'PRE'", btnVal);
                     break;
-                case R.id.ctrl_btn3:
-                    ctrlStateOutgoing.put("'btn3'", btnVal);
+                case R.id.nextBtn:
+                    ctrlStateOutgoing.put("'NEX'", btnVal);
                     break;
             }
 
-            //Log.d("Touch",Integer.toString(ctrl_state_outgoing.get("btn1")));
+            //Log.d("Touch",Integer.toString(ctrl_state_outgoing.get("CAL")));
 
             return false;
         }
@@ -148,14 +218,18 @@ public class ControllerActivity extends AppCompatActivity {
             int btnVal = !((ToggleButton)view).isChecked() ? 1 : 0;
 
             switch (view.getId()) {
-                case R.id.ctrl_btn4:
-                    ctrlStateOutgoing.put("'btn4'",btnVal);
+                case R.id.autoBtn:
+                    ctrlStateOutgoing.put("'AUT'",btnVal);
                     break;
-                case R.id.ctrl_btn5:
-                    ctrlStateOutgoing.put("'btn5'",btnVal);
+                case R.id.arrowBtn:
+                    ctrlStateOutgoing.put("'ARR'",btnVal);
                     break;
-                case R.id.ctrl_btn6:
-                    ctrlStateOutgoing.put("'btn6'",btnVal);
+                case R.id.armBtn:
+                    ctrlStateOutgoing.put("'ARM'",btnVal);
+//                    channel3Text.setText("THR: " + 1100);
+                    channel2Text.setText("THR: " + 1100);
+                    ctrlStateOutgoing.put("'THR'",-80);
+                    updateTouchPadMarkers();
                     break;
             }
 
@@ -164,32 +238,43 @@ public class ControllerActivity extends AppCompatActivity {
     };
 
     public void initializeDefaultState() {
-        ctrlStateOutgoing.put("'leftTouchPadX'",0);
-        ctrlStateOutgoing.put("'leftTouchPadY'",0);
-        ctrlStateOutgoing.put("'rightTouchPadX'",0);
-        ctrlStateOutgoing.put("'rightTouchPadY'",0);
-        ctrlStateOutgoing.put("'btn1'",0);
-        ctrlStateOutgoing.put("'btn2'",0);
-        ctrlStateOutgoing.put("'btn3'",0);
-        ctrlStateOutgoing.put("'btn4'",0);
-        ctrlStateOutgoing.put("'btn5'",0);
-        ctrlStateOutgoing.put("'btn6'",0);
-
+        ctrlStateOutgoing.put("'AIL'",0);
+        ctrlStateOutgoing.put("'ELE'",0);
+        ctrlStateOutgoing.put("'THR'",0);
+        ctrlStateOutgoing.put("'RUD'",0);
+        ctrlStateOutgoing.put("'MOD'",1);
+        ctrlStateOutgoing.put("'CYC'",10);
+        ctrlStateOutgoing.put("'CAL'",0);
+        ctrlStateOutgoing.put("'PRE'",0);
+        ctrlStateOutgoing.put("'NEX'",0);
+        ctrlStateOutgoing.put("'AUT'",0);
+        ctrlStateOutgoing.put("'ARR'",0);
+        ctrlStateOutgoing.put("'ARM'",0);
     }
 
     public void updateTouchPadMarkers() {
         View lPad = findViewById(R.id.ctrl_leftTouchPad);
         View lMarker = findViewById(R.id.leftTouchPadMarker);
-        lMarker.setX(lPad.getWidth() * ctrlStateOutgoing.get("'leftTouchPadX'")
+//        lMarker.setX(lPad.getWidth() * ctrlStateOutgoing.get("'AIL'")
+//                /(TOUCHPAD_RANGE*2) + lPad.getWidth()/2 - lMarker.getWidth()/2);
+//        lMarker.setY(lPad.getHeight() * -ctrlStateOutgoing.get("'ELE'")
+//                /(TOUCHPAD_RANGE*2) + lPad.getHeight()/2 - lMarker.getHeight()/2);
+
+        lMarker.setX(lPad.getWidth() * ctrlStateOutgoing.get("'RUD'")
                 /(TOUCHPAD_RANGE*2) + lPad.getWidth()/2 - lMarker.getWidth()/2);
-        lMarker.setY(lPad.getHeight() * -ctrlStateOutgoing.get("'leftTouchPadY'")
+        lMarker.setY(lPad.getHeight() * -ctrlStateOutgoing.get("'THR'")
                 /(TOUCHPAD_RANGE*2) + lPad.getHeight()/2 - lMarker.getHeight()/2);
 
         View rPad = findViewById(R.id.ctrl_rightTouchPad);
         View rMarker = findViewById(R.id.rightTouchPadMarker);
-        rMarker.setX(ctrlStateOutgoing.get("'rightTouchPadX'")*rPad.getWidth()
+//        rMarker.setX(ctrlStateOutgoing.get("'RUD'")*rPad.getWidth()
+//                /(TOUCHPAD_RANGE*2) + rPad.getWidth()/2 - rMarker.getWidth()/2);
+//        rMarker.setY(-ctrlStateOutgoing.get("'THR'")*rPad.getHeight()
+//                /(TOUCHPAD_RANGE*2) + rPad.getHeight()/2 - rMarker.getHeight()/2);
+
+        rMarker.setX(ctrlStateOutgoing.get("'AIL'")*rPad.getWidth()
                 /(TOUCHPAD_RANGE*2) + rPad.getWidth()/2 - rMarker.getWidth()/2);
-        rMarker.setY(-ctrlStateOutgoing.get("'rightTouchPadY'")*rPad.getHeight()
+        rMarker.setY(-ctrlStateOutgoing.get("'ELE'")*rPad.getHeight()
                 /(TOUCHPAD_RANGE*2) + rPad.getHeight()/2 - rMarker.getHeight()/2);
 
 

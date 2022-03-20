@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.cameronfranz.robotremote.MainActivity"
+            android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cameronfranz.robotremote.ControllerActivity"
+            android:exported="true"
             android:screenOrientation="landscape"
             ></activity>
         <activity android:name="com.cameronfranz.robotremote.SettingsActivity"
+            android:exported="true"
             android:screenOrientation="landscape"></activity>
         <activity android:name="com.cameronfranz.robotremote.HelpActivity"
+            android:exported="true"
             android:screenOrientation="landscape"></activity>
 
     </application>

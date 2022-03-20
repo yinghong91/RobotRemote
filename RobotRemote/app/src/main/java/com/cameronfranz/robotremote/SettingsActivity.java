@@ -25,10 +25,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        ipAddress.setText(spref.getString("controller_ip",""));
-        sendPort.setText(Integer.toString(spref.getInt("controller_send_port",8111)));
+        ipAddress.setText(spref.getString("controller_ip","192.168.1.197"));
+        sendPort.setText(Integer.toString(spref.getInt("controller_send_port",2390)));
         receivePort.setText(Integer.toString(spref.getInt("controller_receive_port",8112)));
-        updateRate.setText(Integer.toString(spref.getInt("controller_update_rate",60)));
+        updateRate.setText(Integer.toString(spref.getInt("controller_update_rate",50)));
     }
 
     public void saveSettings(View view) {

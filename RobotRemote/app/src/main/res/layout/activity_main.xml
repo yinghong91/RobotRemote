@@ -1,45 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_200"
     android:gravity="center"
-    android:weightSum="1"
     android:orientation="vertical"
     android:screenOrientation="landscape"
-    android:background="@color/backgroundPrimary">
+    android:weightSum="1">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="800dp"
+        android:layout_height="1500dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/darkPrimary"
+        android:rotation="45"
+        android:translationX="-150dp"
+        android:translationY="-700dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pixel_font"
+        android:gravity="top|center_horizontal"
+        android:text="UDP RC Joystick\nfor Monocopter"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/grey_100"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_start_controller"
-            android:onClick="startController"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/main_settings"
-            android:onClick="startSettings"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/main_help"
-            android:onClick="startHelp"
-            />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="380dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="48dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/logo" />
 
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="startController"
+        android:stateListAnimator="@null"
+        android:text="Controller"
+        android:textColor="@color/darkPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="startSettings"
+        android:stateListAnimator="@null"
+        android:text="Settings"
+        android:textColor="@color/darkPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="startHelp"
+        android:stateListAnimator="@null"
+        android:text="Help"
+        android:textColor="@color/darkPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button3" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

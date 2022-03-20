@@ -45,8 +45,9 @@ public class UDPSendServer implements Runnable {
             sendSocket = new DatagramSocket();
             while(!Thread.currentThread().isInterrupted()) {
                 try {
-                    String stringOut = ctrl_state_outgoing.toString().replace("=", ":");
-                    sendCommandPacket(sendSocket, stringOut);
+                    String stringOut = ctrl_state_outgoing.toString().replace("=", ":").
+                            replace(" ", "").replace("'", "");
+                    sendCommandPacket(sendSocket, stringOut.substring(1, stringOut.length() - 1));
                 }
                 catch (UnknownHostException e) {
                     //Log.d("CommandServer","Invalid destination IP");
